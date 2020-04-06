@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"net/http"
 	"strconv"
 	"strings"
@@ -10,12 +11,16 @@ import (
 	"gopkg.in/olahol/melody.v1"
 )
 
+var port = flag.String("port", "5000", "speicfy a port")
+
 // GopherInfo contains information about the gopher on screen
 type GopherInfo struct {
 	ID, X, Y string
 }
 
 func main() {
+	flag.Parse()
+
 	router := gin.Default()
 	mrouter := melody.New()
 	gophers := make(map[*melody.Session]*GopherInfo)
@@ -60,5 +65,5 @@ func main() {
 		lock.Unlock()
 	})
 
-	router.Run(":5000")
+	router.Run(":" + *port)
 }

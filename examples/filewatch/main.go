@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"io/ioutil"
 	"net/http"
 
@@ -9,7 +10,11 @@ import (
 	"gopkg.in/olahol/melody.v1"
 )
 
+var port = flag.String("port", "5000", "speicfy a port")
+
 func main() {
+	flag.Parse()
+
 	file := "file.txt"
 
 	r := gin.Default()
@@ -41,5 +46,5 @@ func main() {
 
 	w.Add(file)
 
-	r.Run(":5000")
+	r.Run(":" + *port)
 }

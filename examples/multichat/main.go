@@ -1,13 +1,18 @@
 package main
 
 import (
+	"flag"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/olahol/melody.v1"
 )
 
+var port = flag.String("port", "5000", "speicfy a port")
+
 func main() {
+	flag.Parse()
+
 	r := gin.Default()
 	m := melody.New()
 
@@ -29,5 +34,5 @@ func main() {
 		})
 	})
 
-	r.Run(":5000")
+	r.Run(":" + *port)
 }
